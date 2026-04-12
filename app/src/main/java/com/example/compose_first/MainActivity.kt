@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.compose_first.routes.HomeRoute
+import com.example.compose_first.routes.GeneralRoute
 import com.example.compose_first.routes.SplashRoute
 import com.example.compose_first.screens.News
 import com.example.compose_first.screens.SplashScreen
@@ -52,6 +52,7 @@ import com.example.compose_first.ui.theme.Compose_FirstTheme
 
 
 class MainActivity : ComponentActivity() {
+
 
 
 
@@ -76,12 +77,13 @@ class MainActivity : ComponentActivity() {
 fun App(
 
 ){
+
     var navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = HomeRoute
+        startDestination = GeneralRoute
     ) {
-        composable<HomeRoute> {
+        composable<GeneralRoute> {
             News(navController)
         }
         composable<SplashRoute> {

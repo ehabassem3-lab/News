@@ -36,6 +36,7 @@ fun DrawerContent()
         modifier = Modifier.fillMaxHeight().fillMaxWidth(.7f).background(colorScheme.background)
     ) {
         Box(
+
             modifier = Modifier.fillMaxWidth().fillMaxHeight(.2f).background(colorScheme.onBackground),
             contentAlignment = Alignment.Center
         ){
