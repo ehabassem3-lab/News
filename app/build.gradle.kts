@@ -43,6 +43,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.runtime.livedata)
+    val lifecycle_version = "2.10.0"
+    val arch_version = "2.2.0"
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     val nav_version = "2.9.7"
     implementation(libs.androidx.navigation.compose)
@@ -65,6 +68,16 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}")
+// ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:${lifecycle_version}")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}")
+
+    implementation("com.github.bumptech.glide:glide:4.8.0")
 
 
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 }

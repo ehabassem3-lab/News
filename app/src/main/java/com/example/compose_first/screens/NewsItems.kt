@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,6 +37,11 @@ import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.Placeholder
 import com.example.compose_first.R
 import com.example.compose_first.api.ApiManager
 import com.example.compose_first.models.ArticelsResponse
@@ -43,65 +49,25 @@ import com.example.compose_first.models.ArticlesItem
 import com.example.compose_first.models.SourcesItem
 import com.example.compose_first.ui.theme.DarkThemeTypography
 import com.example.compose_first.ui.theme.Gray
+import com.example.compose_first.viewmodels.NewsViewModel
 import com.google.gson.annotations.Until
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-data class NewsItem(
-    val ImageUrl : Int ,
-    val NewsHeadLine : String,
-    val NewsAuthor  : String ,
-    val NewsPublishTime : String
-)
 
 
 @Composable
 fun NewsItems(sources : String?){
     val colorScheme  = MaterialTheme.colorScheme
-    var isLoading by  remember {  mutableStateOf(false)}
-    var isError by  remember {  mutableStateOf<String?>(null)}
-    var Articles by remember {  mutableStateOf<List<ArticlesItem>?>( null) }
-    DisposableEffect(Unit) {
-        isLoading = true
-        ApiManager.apiService.getArticles(source =  sources!!).enqueue(
+   val viewModel = viewModel<NewsViewModel>()
+    var isLoading = viewModel.isLoadingArticle.observeAsState()
+    var  isError = viewModel.isErrorArticle.observeAsState()
+    var  Articles = viewModel.Article.observeAsState()
+    DisposableEffect(sources) {
+            viewModel.getArticles(sources?:"")
 
-            object : Callback<ArticelsResponse>{
-                override fun onResponse(
-                    call: Call<ArticelsResponse?>,
-                    response: Response<ArticelsResponse?>
-                ) {
-                    isLoading = false
-
-                    if (response.isSuccessful){
-                            Articles = response.body()!!.articles
-                            Log.e("Articels Body " , "${response.body()}")
-                        }
-                   else{
-                            Log.e("Some Thing Went Wrong line 151","Articles Error ")
-                            Log.e("Some Thing Went Wrong line 151","${response.code()}")
-                            Log.e("ERROR", response.errorBody()?.string().toString())
-
-                        isError = "t.message"
-
-
-
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ArticelsResponse?>,
-                    t: Throwable
-                ) {
-                    isLoading = false
-                   isError = t.message
-                    Log.e("Some Thing Went Wrong line 159","Articles Error "+t.message)
-                }
-
-            }
-
-        )
          onDispose {
 
          }
@@ -115,51 +81,12 @@ fun NewsItems(sources : String?){
             fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         item{
-            if (isLoading){
+            if (isLoading.value == true){
                 onLoading("The Articles Is Loading ")
             }
-            if (isError?.isNotEmpty() == true){
+            if (isError?.value?.isNotEmpty() == true){
                 onError("Try Again") {
-                    isLoading = true
-                    ApiManager.apiService.getArticles(source =  sources!!).enqueue(
-
-                        object : Callback<ArticelsResponse>{
-                            override fun onResponse(
-                                call: Call<ArticelsResponse?>,
-                                response: Response<ArticelsResponse?>
-                            ) {
-                                isLoading = false
-
-                                if (response.isSuccessful){
-                                    Articles = response.body()!!.articles
-                                    Log.e("Articels Body " , "${response.body()}")
-                                }
-                                else{
-                                    Log.e("Some Thing Went Wrong line 151","Articles Error ")
-                                    Log.e("Some Thing Went Wrong line 151","${response.code()}")
-                                    Log.e("ERROR", response.errorBody()?.string().toString())
-
-                                    isError = "t.message"
-
-
-
-                                }
-                            }
-
-                            override fun onFailure(
-                                call: Call<ArticelsResponse?>,
-                                t: Throwable
-                            ) {
-                                isLoading = false
-                                isError = t.message
-                                Log.e("Some Thing Went Wrong line 159","Articles Error "+t.message)
-                            }
-
-                        }
-
-                    )
-                    isError = null
-
+                   viewModel.getArticles(sources?:"")
 
 
 
@@ -170,9 +97,9 @@ fun NewsItems(sources : String?){
             }
         }
 
-        if (!Articles.isNullOrEmpty()){
-            items (Articles!!.size){ Article ->
-                NewsSingleITem(Articles!![Article])
+        if (!Articles.value.isNullOrEmpty()){
+            items (Articles.value!!.size){ Article ->
+                NewsSingleITem(Articles.value!![Article])
                 Spacer(modifier = Modifier.size(10.dp))
 
             }
@@ -184,6 +111,7 @@ fun NewsItems(sources : String?){
 
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun NewsSingleITem(articels : ArticlesItem?){
     val colorScheme  = MaterialTheme.colorScheme
@@ -193,8 +121,20 @@ fun NewsSingleITem(articels : ArticlesItem?){
             containerColor = colorScheme.background
         )
     ) {
-        Image( modifier = Modifier.padding(  5.dp).fillMaxWidth().fillMaxHeight(.7f).padding(5.dp).align(Alignment.CenterHorizontally),
-            painter = painterResource(R.drawable.ic_old_man), contentDescription = "News Image ")
+        GlideImage(
+
+
+
+            model = articels!!.urlToImage,
+            contentDescription = "News Image",
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth()
+                .fillMaxHeight(0.7f)
+                .padding(5.dp)
+                .align(Alignment.CenterHorizontally) ,
+
+        )
         Text(
             articels?.title ?: "" , modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 10.dp)
                      , style = DarkThemeTypography.bodySmall ,
