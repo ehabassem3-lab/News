@@ -50,15 +50,11 @@ import com.example.compose_first.screens.News
 import com.example.compose_first.screens.SplashScreen
 import com.example.compose_first.screens.onLoading
 import com.example.compose_first.ui.theme.Compose_FirstTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

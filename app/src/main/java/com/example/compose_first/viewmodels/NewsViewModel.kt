@@ -1,6 +1,7 @@
 package com.example.compose_first.viewmodels
 
 import android.util.Log
+import com.example.compose_first.domain.usecase.GetSourcesUseCase
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,20 +13,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose_first.api.ApiManager
+import com.example.compose_first.database.SourcesDatabase
 import com.example.compose_first.models.ArticelsResponse
 import com.example.compose_first.models.ArticlesItem
 import com.example.compose_first.models.SourcesItem
 import com.example.compose_first.models.SourcesResponse
-import com.example.compose_first.reposotories.NewsRepositories
+import com.example.compose_first.reposotories.NewsRepositoriesImpl
+import com.example.compose_first.reposotories.offlineDataSourceImpl
+import com.example.compose_first.reposotories.onlineDataSourceImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 import kotlin.math.log
 
+@HiltViewModel
+class  NewsViewModel @Inject constructor(
+     val getSourcesUseCase: GetSourcesUseCase
+): ViewModel(){
 
-class  NewsViewModel : ViewModel(){
-    var newsRepositories  = NewsRepositories()
+
+
     var tabs  : MutableLiveData<List<SourcesItem>?> = MutableLiveData(null)
 
     var isLoadingSources  : MutableLiveData<Boolean> = MutableLiveData(false)
@@ -39,7 +49,7 @@ class  NewsViewModel : ViewModel(){
         isLoadingSources.value = true
         viewModelScope.launch {
             try {
-                tabs.value  = newsRepositories.getSources(category =  categories)
+                tabs.value  = getSourcesUseCase.repositorie.getSources(category =  categories)
                 Log.e("Respone " , "Response${tabs.value }")
 
                 isLoadingSources.value = false

@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose_first.api.ApiManager
 import com.example.compose_first.api.ApiServices
@@ -49,7 +50,7 @@ import retrofit2.Retrofit
 fun NewsTabs(categories: CategoriesModel) {
     val colorScheme = MaterialTheme.colorScheme
     var selectedTabIndex by remember { mutableStateOf(0) }
-    var viewModel =  viewModel<NewsViewModel>()
+    var viewModel = hiltViewModel<NewsViewModel>()
     val isLoading = viewModel.isLoadingSources.observeAsState()
     val isError = viewModel.isErrorSources.observeAsState()
     val tabs = viewModel.tabs.observeAsState()

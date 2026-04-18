@@ -13,10 +13,10 @@ composeBom = "2024.09.00"
 foundation = "1.10.2"
 navigationCompose = "2.9.7"
 runtimeLivedata = "1.10.6"
-ksp = "2.0.21-1.0.27"
-
+ksp = "2.0.21-1.0.28"           # slightly newer patch
 
 [libraries]
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

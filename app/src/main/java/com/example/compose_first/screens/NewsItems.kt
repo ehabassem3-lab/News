@@ -37,6 +37,7 @@ import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -61,7 +62,7 @@ import retrofit2.Response
 @Composable
 fun NewsItems(sources : String?){
     val colorScheme  = MaterialTheme.colorScheme
-   val viewModel = viewModel<NewsViewModel>()
+   val viewModel = hiltViewModel<NewsViewModel>()
     var isLoading = viewModel.isLoadingArticle.observeAsState()
     var  isError = viewModel.isErrorArticle.observeAsState()
     var  Articles = viewModel.Article.observeAsState()

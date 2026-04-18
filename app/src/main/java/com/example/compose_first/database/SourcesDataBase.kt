@@ -22,6 +22,6 @@ abstract  class SourcesDatabase  : RoomDatabase() {
                }
 
            }
-    abstract fun getDao() : sourcesDao
+    abstract fun getDao() : SourcesDao
 
 }

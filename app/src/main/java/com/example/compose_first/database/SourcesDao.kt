@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.compose_first.models.SourcesItem
 
 @Dao
-interface sourcesDao {
+interface SourcesDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
