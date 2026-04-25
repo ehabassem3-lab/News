@@ -10,6 +10,7 @@ class ApiManager {
         val client = OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
+                    .addHeader("X-Api-Key", API_KEY)
                     .addHeader("User-Agent", "Mozilla/5.0")
                     .addHeader("Accept", "application/json")
                     .build()

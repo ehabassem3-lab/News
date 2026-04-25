@@ -40,13 +40,27 @@ android {
         compose = true
     }
 }
+buildscript {
+    dependencies {
+
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+    }
+}
+
 
 dependencies {
+    implementation(libs.play.services.location)
     val room_version = "2.8.4"
     val lifecycle_version = "2.10.0"
 
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+
+    implementation("com.google.maps.android:maps-compose:4.4.1")
+    implementation("com.google.maps.android:android-maps-utils:3.8.2")
     // Room
     implementation("androidx.room:room-runtime:$room_version")
+    implementation(libs.play.services.maps)
+
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")   // only this one
 
@@ -58,6 +72,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Lifecycle + Compose
+
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
@@ -75,16 +90,21 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
+    implementation(libs.maps.utils)
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Glide
+
     implementation("com.github.bumptech.glide:glide:4.8.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     // Tests
+    implementation("com.google.accompanist:accompanist-permissions:0.37.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

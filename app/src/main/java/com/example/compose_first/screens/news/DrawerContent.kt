@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,18 +15,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.example.compose_first.R
+
+import com.example.compose_first.screens.news.changeTheme
 import com.example.compose_first.ui.theme.DarkThemeTypography
 
 @Composable
-fun DrawerContent(OnHomeClick:()-> Unit)
+fun DrawerContent(OnHomeClick:()-> Unit, OnThemeClick:()-> Unit)
 
 {
     val colorScheme =  MaterialTheme.colorScheme
@@ -65,9 +64,11 @@ fun DrawerContent(OnHomeClick:()-> Unit)
         RowItem(
             Icon = painterResource(R.drawable.ic_roller),
             title = "Theme",
-            onClick = {
+           onClick = {
 
+                   OnThemeClick()
             }
+
 
         )
         HorizontalDivider(modifier = Modifier.padding(12.dp), thickness = 4.dp , color = colorScheme.onBackground)

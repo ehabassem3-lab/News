@@ -8,3 +8,7 @@ import kotlinx.serialization.Serializable
 data  object SplashRoute
 @Serializable
 data  object CategoriesRoute
+@Serializable
+data  object MapsAppRoute
+@Serializable
+data  object ThemesRoute

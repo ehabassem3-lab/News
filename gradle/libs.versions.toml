@@ -5,6 +5,9 @@ coreKtx = "1.17.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
+maps = "19.0.0"
+mapsCompose = "4.4.1"
+mapsUtils = "3.8.2"
 
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.2"
@@ -13,9 +16,15 @@ composeBom = "2024.09.00"
 foundation = "1.10.2"
 navigationCompose = "2.9.7"
 runtimeLivedata = "1.10.6"
-ksp = "2.0.21-1.0.28"           # slightly newer patch
+ksp = "2.0.21-1.0.28"
+playServicesLocation = "21.3.0"           # slightly newer patch
 
 [libraries]
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "maps" }
+
+maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
+
+maps-utils = { group = "com.google.maps.android", name = "android-maps-utils", version.ref = "mapsUtils" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -41,6 +50,7 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -14,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose_first.api.ApiManager
 import com.example.compose_first.database.SourcesDatabase
+import com.example.compose_first.domain.usecase.GetArticlesUseCase
 import com.example.compose_first.models.ArticelsResponse
 import com.example.compose_first.models.ArticlesItem
 import com.example.compose_first.models.SourcesItem
@@ -31,7 +32,8 @@ import kotlin.math.log
 
 @HiltViewModel
 class  NewsViewModel @Inject constructor(
-     val getSourcesUseCase: GetSourcesUseCase
+     val getSourcesUseCase: GetSourcesUseCase ,
+
 ): ViewModel(){
 
 
@@ -74,7 +76,7 @@ class  NewsViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                var response =    ApiManager.apiService.getArticles(source =  source!!)
+                 var response = ApiManager.apiService.getArticles( source = source)
                 Article.value = response.articles
                 isLoadingArticle.value = false
             }
