@@ -15,11 +15,18 @@ interface ApiServices {
         @Query("category") category: String
     ) : SourcesResponse
 
+
+    @GET("v2/top-headlines")
+    suspend fun searchArticles(
+        @Query("category") category: String
+    ) : ArticelsResponse
+
      @GET("v2/everything")
      suspend fun getArticles
                  (
        @Query("sources")  source : String
     ) : ArticelsResponse
+
 
 
 }

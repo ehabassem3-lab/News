@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +24,11 @@ import com.example.compose_first.ui.theme.DarkThemeTypography
 @Composable
 fun TopAppBar(
     title: String,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit ,
+    onSearchClick: () -> Unit
 ) {
+
+
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -47,7 +52,10 @@ fun TopAppBar(
             Image(
                 modifier = Modifier
                     .padding(end = 20.dp)
-                    .size(30.dp),
+                    .size(30.dp)
+                    .clickable{
+                          onSearchClick()
+                    },
                 painter = painterResource(R.drawable.ic_search),
                 contentDescription = "Search",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)

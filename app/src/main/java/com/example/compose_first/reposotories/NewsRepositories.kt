@@ -1,6 +1,8 @@
 package com.example.compose_first.reposotories
 
 import android.util.Log
+import com.example.compose_first.api.ApiManager
+import com.example.compose_first.api.ApiServices
 import com.example.compose_first.domain.repositories.NewsRepo
 import com.example.compose_first.domain.repositories.offlineDataSource
 import com.example.compose_first.domain.repositories.onlineDataSource
@@ -34,6 +36,12 @@ class NewsRepositoriesImpl  @Inject constructor (
 
     }
 
+    override suspend fun searchSources(category: String): List<ArticlesItem> {
+        val search = ApiManager.apiService.searchArticles(category).articles
+        Log.e("Search Results ","Search Results ${search}")
+        return  search!!
+
+    }
 
 
 }

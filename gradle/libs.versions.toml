@@ -17,7 +17,8 @@ foundation = "1.10.2"
 navigationCompose = "2.9.7"
 runtimeLivedata = "1.10.6"
 ksp = "2.0.21-1.0.28"
-playServicesLocation = "21.3.0"           # slightly newer patch
+playServicesLocation = "21.3.0"
+foundationVersion = "1.11.0"           # slightly newer patch
 
 [libraries]
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "maps" }
@@ -51,6 +52,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

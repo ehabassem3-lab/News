@@ -12,3 +12,6 @@ data  object CategoriesRoute
 data  object MapsAppRoute
 @Serializable
 data  object ThemesRoute
+
+@Serializable
+data  object SearchRoute

@@ -14,10 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose_first.routes.GeneralRoute
 import com.example.compose_first.routes.MapsAppRoute
+import com.example.compose_first.routes.SearchRoute
 import com.example.compose_first.routes.SplashRoute
 import com.example.compose_first.routes.ThemesRoute
 import com.example.compose_first.screens.maps.MapsWrapper
 import com.example.compose_first.screens.news.News
+import com.example.compose_first.screens.news.SearchScreen
 import com.example.compose_first.screens.news.SplashScreen
 import com.example.compose_first.screens.news.changeTheme
 import com.example.compose_first.ui.theme.Compose_FirstTheme
@@ -62,7 +64,7 @@ fun App(
 
     NavHost(
         navController = navController,
-        startDestination = ThemesRoute
+        startDestination = SearchRoute
     ) {
         composable<GeneralRoute> {
             News(navController)
@@ -79,6 +81,9 @@ fun App(
               isDarkTheme = isDarkTheme,
                 onThemeChange = onThemeChange
             )
+        }
+        composable<SearchRoute> {
+            SearchScreen(navController)
         }
 
     }

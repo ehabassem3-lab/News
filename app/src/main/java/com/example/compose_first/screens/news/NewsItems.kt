@@ -103,8 +103,6 @@ fun NewsSingleITem(articels : ArticlesItem?){
     ) {
         GlideImage(
 
-
-
             model = articels!!.urlToImage,
             contentDescription = "News Image",
             modifier = Modifier

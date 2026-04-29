@@ -43,7 +43,7 @@ import com.example.compose_first.ui.theme.DarkThemeTypography
     Scaffold(
         topBar = {
             Box(
-                modifier = Modifier.background(colorScheme.background)
+                modifier = Modifier.background(colorScheme.background).padding(top = 30.dp)
 
 
 
@@ -90,8 +90,13 @@ import com.example.compose_first.ui.theme.DarkThemeTypography
 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row() {
-                Text("Change The Theme ", color = colorScheme.onBackground, modifier = Modifier.padding(top = 10.dp))
+            Column (
+                verticalArrangement = Arrangement.Center ,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Change The Theme to ${if (isDarkTheme){"White  "}else "Dark Theme" }",
+                    color = colorScheme.onBackground,
+                    modifier = Modifier.padding(top = 10.dp))
               Spacer(modifier = Modifier.size(20.dp))
                 SwitchButton(
                     isDarkTheme = isDarkTheme,

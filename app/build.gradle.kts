@@ -50,6 +50,7 @@ buildscript {
 
 dependencies {
     implementation(libs.play.services.location)
+    implementation(libs.androidx.foundation)
     val room_version = "2.8.4"
     val lifecycle_version = "2.10.0"
 

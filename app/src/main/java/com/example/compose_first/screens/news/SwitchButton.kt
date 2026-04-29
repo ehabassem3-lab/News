@@ -19,7 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.compose_first.R
 
 @Composable
 fun SwitchButton(
@@ -44,6 +46,23 @@ fun SwitchButton(
             uncheckedTrackColor = colorScheme.onBackground
         ),
 
-        modifier = Modifier.scale(scaleX = 1.1f , scaleY = 1f)
+        modifier = Modifier.scale(scaleX = 1.1f , scaleY = 1f) ,
+        thumbContent =
+
+            {
+                Icon(
+                    painter =
+                        if (isDarkTheme) painterResource(R.drawable.feather_moon) else painterResource(R.drawable.radix_sun)
+                    ,
+                    contentDescription = null,
+                    tint =    colorScheme.onBackground ,
+                    modifier = Modifier.size(SwitchDefaults.IconSize),
+
+                )
+
+
+
+        }
+
     )
 }
