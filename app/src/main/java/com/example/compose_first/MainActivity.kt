@@ -64,7 +64,7 @@ fun App(
 
     NavHost(
         navController = navController,
-        startDestination = SearchRoute
+        startDestination = GeneralRoute
     ) {
         composable<GeneralRoute> {
             News(navController)

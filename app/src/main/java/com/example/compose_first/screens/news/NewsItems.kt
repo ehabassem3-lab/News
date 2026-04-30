@@ -2,7 +2,9 @@ package com.example.compose_first.screens.news
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,15 +21,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.Placeholder
+import com.bumptech.glide.integration.compose.placeholder
+import com.example.compose_first.R
 import com.example.compose_first.models.ArticlesItem
 import com.example.compose_first.ui.theme.DarkThemeTypography
 import com.example.compose_first.viewmodels.NewsViewModel
+
 
 
 @Composable
@@ -37,6 +46,10 @@ fun NewsItems(sources : String?){
     var isLoading = viewModel.isLoadingArticle.observeAsState()
     var  isError = viewModel.isErrorArticle.observeAsState()
     var  Articles = viewModel.Article.observeAsState()
+    var selectedArticle = remember {
+        mutableStateOf<ArticlesItem?>(null)
+    }
+
     DisposableEffect(sources) {
             viewModel.getArticles(sources?:"")
 
@@ -49,8 +62,8 @@ fun NewsItems(sources : String?){
 
     LazyColumn (
         modifier = Modifier
-            .background(colorScheme.background).
-            fillMaxSize(),
+            .background(colorScheme.background)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         item{
             if (isLoading.value == true){
@@ -78,7 +91,12 @@ fun NewsItems(sources : String?){
 
         if ( !Articles.value.isNullOrEmpty()){
                     items (Articles.value!!.size){ Article ->
-                        NewsSingleITem(Articles.value!![Article])
+                        Box(Modifier.clickable{
+                            selectedArticle.value = Articles.value!!.get(Article)
+                        }) {
+                            NewsSingleITem(Articles.value!![Article])
+
+                        }
                         Spacer(modifier = Modifier.size(10.dp))
 
             }
@@ -88,15 +106,21 @@ fun NewsItems(sources : String?){
 
     }
 
+    if (selectedArticle.value != null){
+        BottomBar(selectedArticle = selectedArticle)
+    }
 
 }
+
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun NewsSingleITem(articels : ArticlesItem?){
     val colorScheme  = MaterialTheme.colorScheme
     Card ( border = BorderStroke(2.dp , color = colorScheme.onBackground),
-        modifier = Modifier.fillMaxWidth(.9f).height(350.dp) ,
+        modifier = Modifier
+            .fillMaxWidth(.9f)
+            .height(350.dp) ,
         colors = CardDefaults.cardColors(
             containerColor = colorScheme.background
         )
@@ -109,12 +133,15 @@ fun NewsSingleITem(articels : ArticlesItem?){
                 .padding(5.dp)
                 .fillMaxWidth()
                 .fillMaxHeight(0.7f)
+
                 .padding(5.dp)
                 .align(Alignment.CenterHorizontally) ,
 
         )
         Text(
-            articels?.title ?: "" , modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 10.dp)
+            articels?.title ?: "" , modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(horizontal = 10.dp)
                      , style = DarkThemeTypography.bodySmall ,
             color = colorScheme.onBackground
         )

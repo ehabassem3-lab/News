@@ -42,7 +42,7 @@ fun SearchScreen(navController: NavController){
                     onBackClick =  {
                         if (!text.value.isEmpty()){
                             text.value = ""
-
+                            searchClicked = false
 
                         }
                         else{
@@ -65,12 +65,12 @@ fun SearchScreen(navController: NavController){
                 .background(colorScheme.background)
                 .padding(innerPadding)
         ) {
-
             if (searchClicked){
                 SearchedItem(text.value)
             }
             else{
                 SearchDefaultScreen()
+
             }
 
         }

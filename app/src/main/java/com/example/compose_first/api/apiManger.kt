@@ -17,7 +17,7 @@ class ApiManager {
                 chain.proceed(request)
             }
             .build()
-         const val API_KEY = "8d949cb725b04e10bb01704c9b29d466"
+         const val API_KEY = "728f9527d06d4edca3c6981178b4861e"
         private const val BASE_URL = "https://newsapi.org/"
 
         private val retrofit: Retrofit by lazy {

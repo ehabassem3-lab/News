@@ -25,9 +25,9 @@ class SearchViewModel@Inject constructor(
         viewModelScope.launch {
             isLoadingArticle.value = true
             try {
-             var searched =    searchArticlesUseCase.execute(category =  name?:"")
+             var searched =    searchArticlesUseCase.execute(category =  name?.trim()?:"")
                 ArticleSearched.value =  searched
-                Log.e("Success ","Error Getting the Search ${searched}")
+                Log.e("Success ","Success ${searched}")
                 isLoadingArticle.value = false
 
 
