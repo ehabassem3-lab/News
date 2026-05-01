@@ -53,7 +53,8 @@ fun BottomBar(
         onDismissRequest = {
             selectedArticle.value = null
         },
-        containerColor = colorScheme.onBackground
+        containerColor = colorScheme.onBackground ,
+
     ) {
         Column(
             modifier = Modifier

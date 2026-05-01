@@ -34,8 +34,9 @@ fun SearchScreen(navController: NavController){
 
     Scaffold(
         topBar = {
+            Spacer(modifier = Modifier.size(20.dp))
             Column(
-                modifier = Modifier.padding(top = 20.dp, bottom = 10.dp)
+                modifier = Modifier.padding(top = 30.dp, bottom = 10.dp)
             ) {
                 SearchComponent(
                     text = text ,

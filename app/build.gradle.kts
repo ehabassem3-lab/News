@@ -68,6 +68,7 @@ dependencies {
     // Hilt (fixed)
     implementation("com.google.dagger:hilt-android:2.57.1")
     ksp("com.google.dagger:hilt-compiler:2.57.1")     // ← corrected
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     // Hilt Navigation Compose (updated)
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")

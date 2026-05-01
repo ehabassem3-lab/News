@@ -36,16 +36,25 @@ class MainActivity : ComponentActivity() {
               var darkTheme by remember {
                   mutableStateOf(false)
               }
+              var showSplash by remember { mutableStateOf(true) }
 
               Compose_FirstTheme(
                   darkTheme = darkTheme
               ) {
-                  App(
-                      isDarkTheme = darkTheme,
-                      onThemeChange = {
-                          darkTheme = it
+                  if (showSplash){
+                      SplashScreen {
+                          showSplash = false
                       }
-                  )
+                  }
+                  else{
+                      App(
+                          isDarkTheme = darkTheme,
+                          onThemeChange = {
+                              darkTheme = it
+                          }
+                      )
+                  }
+
               }
 
           }
@@ -70,7 +79,7 @@ fun App(
             News(navController)
         }
         composable<SplashRoute> {
-            SplashScreen(navController)
+
         }
         composable<MapsAppRoute> {
             MapsWrapper( )
