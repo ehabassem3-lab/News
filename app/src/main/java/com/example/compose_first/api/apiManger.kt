@@ -24,7 +24,7 @@ class ApiManager {
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client) // 🔥 IMPORTANT
+                .client(client)
                 .build()
         }
 

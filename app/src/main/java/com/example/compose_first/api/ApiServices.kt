@@ -16,9 +16,9 @@ interface ApiServices {
     ) : SourcesResponse
 
 
-    @GET("v2/top-headlines")
+    @GET("v2/everything")
     suspend fun searchArticles(
-        @Query("category") category: String
+        @Query("q") q: String
     ) : ArticelsResponse
 
      @GET("v2/everything")
